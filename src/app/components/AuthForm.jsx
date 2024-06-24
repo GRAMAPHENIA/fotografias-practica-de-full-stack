@@ -64,15 +64,21 @@ export default function AuthForm() {
       <p className="text-center text-white">
         {isNewUser ? (
           <>
-            ¿Ya tienes una cuenta?
-            <button type="button" onClick={() => setIsNewUser(false)}>
-              iniciar sesión
-            </button>
+            <span className="flex justify-center gap-2">
+              <span>¿Ya tienes una cuenta?</span>{" "}
+              <button
+                type="button"
+                onClick={() => setIsNewUser(false)}
+                className="text-amber-100 hover:text-amber-200"
+              >
+                iniciar sesión
+              </button>
+            </span>
           </>
         ) : (
           <>
-            <div className="flex justify-center gap-2">
-              <p>¿No tienes una cuenta?</p>
+            <span className="flex justify-center gap-2">
+              <span>¿No tienes una cuenta?</span>
 
               <button
                 type="button"
@@ -81,7 +87,7 @@ export default function AuthForm() {
               >
                 <span>¡Crea una cuenta!</span>
               </button>
-            </div>
+            </span>
           </>
         )}
       </p>
