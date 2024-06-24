@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../utils/supabaseClient";
 
 export default function AuthForm() {
   const [email, setEmail] = useState("");
@@ -17,14 +18,22 @@ export default function AuthForm() {
   async function handleSingUp(e) {
     e.preventDefault();
     // TASK: handleSingUp
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (!error) {
+      setisSigningUp(true);
+    }
+    console.log({ data, error });
   }
 
-  let signInMessage = "Sign In";
+  let signInMessage = "Iniciar sesión";
 
   if (isSigningIn) {
-    signInMessage = "Sign In";
+    signInMessage = "Iniciar sesión";
   } else if (isNewUser) {
-    signInMessage = "Sign Up ";
+    signInMessage = "Crear una cuenta";
   }
 
   const signInUpMessage = (
@@ -35,7 +44,7 @@ export default function AuthForm() {
 
   return (
     <form
-      onSubit={isNewUser ? handleSingUp : handleLogin}
+      onSubmit={isNewUser ? handleSingUp : handleLogin}
       className="space-y-8"
     >
       <input
@@ -53,10 +62,10 @@ export default function AuthForm() {
         placeholder="password"
       />
 
-      {/* El type="submit" acciona: <form onSubit={isNewUser ? handleSingUp : handleLogin}>  */}
+      {/* El type="submit" acciona: <form onSubmit={isNewUser ? handleSingUp : handleLogin}>  */}
       <button
         type="submit"
-        className="group relative w-full flex justify-center py-2 px-4 border border-transparent"
+        className="group relative w-full flex justify-center py-2 px-4 border border-transparent bg-slate-700 hover:bg-slate-600 rounded"
       >
         {signInMessage}
       </button>
