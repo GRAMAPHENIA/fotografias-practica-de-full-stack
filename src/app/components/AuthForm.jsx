@@ -13,38 +13,40 @@ export default function AuthForm() {
   async function handleLogin(e) {
     e.preventDefault();
     // TASK: handleLogin
+    setIsSigningIn(true);
+    const { error } = await supabase.auth.signIn({ email, password });
+    setIsSigningIn(false);
+    if (error) {
+      console.error("Error logging in:", error);
+    }
   }
 
-  async function handleSingUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
-    // TASK: handleSingUp
+    setIsSigningUp(true);
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
-    if (!error) {
-      setisSigningUp(true);
+    if (error) {
+      console.error("Error signing up:", error);
+      setIsSigningUp(false);
+    } else {
+      // console.log({ data });
+      setIsSigningUp(false);
+      // alert("¡Correo enviado! Revisa tu correo para confirmar la suscripción.");
     }
-    console.log({ data, error });
   }
 
   let signInMessage = "Iniciar sesión";
 
-  if (isSigningIn) {
-    signInMessage = "Iniciar sesión";
-  } else if (isNewUser) {
+  if (isNewUser) {
     signInMessage = "Crear una cuenta";
   }
 
-  const signInUpMessage = (
-    <p className="text-center text-white">
-      ¡Correo enviado! Revisa tu correo para confirmar la suscripción.
-    </p>
-  );
-
   return (
     <form
-      onSubmit={isNewUser ? handleSingUp : handleLogin}
+      onSubmit={isNewUser ? handleSignUp : handleLogin}
       className="space-y-8"
     >
       <input
@@ -53,6 +55,7 @@ export default function AuthForm() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="email"
         className="text-zinc-500 appearance-none rounded relative block w-full px-3 py-2 border border-gray-600"
+        autoComplete="email"
       />
       <input
         type="password"
@@ -60,9 +63,10 @@ export default function AuthForm() {
         onChange={(e) => setPassword(e.target.value)}
         className="text-zinc-500 appearance-none rounded relative block w-full px-3 py-2 border border-gray-600"
         placeholder="password"
+        autoComplete="current-password"
       />
 
-      {/* El type="submit" acciona: <form onSubmit={isNewUser ? handleSingUp : handleLogin}>  */}
+      {/* El type="submit" acciona: <form onSubmit={isNewUser ? handleSignUp : handleLogin}>  */}
       <button
         type="submit"
         className="group relative w-full flex justify-center py-2 px-4 border border-transparent bg-slate-700 hover:bg-slate-600 rounded"
@@ -102,7 +106,11 @@ export default function AuthForm() {
       </p>
 
       {/* Si es falso devuelve null, si es verdadero devuelve lo que este en signInUpMessage. */}
-      {isSigningUp && signInUpMessage}
+      {isSigningUp && (
+        <p className="text-center text-white">
+          ¡Correo enviado! Revisa tu correo para confirmar la suscripción.
+        </p>
+      )}
     </form>
   );
 }
