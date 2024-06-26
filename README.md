@@ -54,6 +54,13 @@ npm run dev
 
 Abre tu navegador y visita http://localhost:3000 para ver la aplicación en funcionamiento.
 
+# Agregar `Middleware.js`
+
+-
+-
+-
+-
+
 # Capturas de Pantalla
 
 A continuación se muestran algunas capturas de pantalla de la aplicación:
