@@ -142,4 +142,4 @@ _Este proyecto está actualmente en desarrollo._
 
 # Contacto
 
-Para cualquier duda o comentario, puedes contactarme atravez de mi [Sitio web oficial](https://hexagono.xyz/).
+Dudas o comentarios, puedes contactarme atravez de mi [Sitio web oficial](https://hexagono.xyz/).
