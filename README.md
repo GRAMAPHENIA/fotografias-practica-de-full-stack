@@ -56,10 +56,55 @@ Abre tu navegador y visita http://localhost:3000 para ver la aplicación en func
 
 # Agregar `Middleware.js`
 
--
--
--
--
+Crea un archivo llamado middleware.js en el directorio raíz del proyecto y agrega la configuración necesaria para manejar la autenticación y las rutas protegidas.
+
+# Rutas protegidas
+
+Configura las rutas protegidas en tu aplicación Next.js para asegurar que solo los usuarios autenticados puedan acceder a ciertas páginas.
+
+# Supabase: creacion de New Bucket dentro del Storage
+
+- Dentro del `New Bucket` crear un New folder.
+
+# Seleccionar
+
+- En `configuracion/politicas`, creamos nueva politica seleccionamos `For full customization`
+  en `Policy name` Colocar nombre. En este caso `Permitir al usuario seleccionar` y clickar en la casilla `select` de `Allowed operation`
+
+  - en `Target roles` seleccionar autenticated
+  - pasamos a `Policy definition` donde vamos a colocar lo siguiente:
+
+```bash
+((bucket_id = 'photographeniers'::text) AND (auth.uid() IS NOT NULL) AND (name ~~ (('user_uploads/'::text || auth.uid()) || '/%'::text)))
+```
+
+# Cargar recurso
+
+- click en `review` y luego en `save policy`
+
+- En `policies/gramapheniers`, creamos nueva politica seleccionamos `For full customization`
+  en `Policy name` Colocar nombre. En este caso `Permitir carga de usuario` y clickar en la casilla `select` de `Allowed operation`
+
+- en `Target roles` seleccionar autenticated
+- pasamos a `Policy definition` donde vamos a colocar lo siguiente:
+
+```bash
+((bucket_id = 'photographeniers'::text) AND (auth.uid() IS NOT NULL) AND (name ~~ (('user_uploads/'::text || auth.uid()) || '/%'::text)))
+```
+
+# Borrar recurso
+
+- En `policies/gramapheniers`, creamos nueva politica seleccionamos `For full customization`
+  en `Policy name` Colocar nombre. En este caso `Permitir borrar al usuario` y clickar en la casilla `select` de `Allowed operation`
+
+- en `Target roles` seleccionar autenticated
+- pasamos a `Policy definition` donde vamos a colocar lo siguiente:
+
+```bash
+((bucket_id = 'photographeniers'::text) AND ((name ~~ (('user_uploads/'::text || auth.uid ()) || '/%'::text )) OR (name ~~ (('user_uploads/'::text || auth.uid())  || '/%/%'::text))))
+```
+
+_Volvemos a VsCode_
 
 # Capturas de Pantalla
 
