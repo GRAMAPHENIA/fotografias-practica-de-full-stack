@@ -2,47 +2,57 @@
 
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import { useRouter } from "next/navigation";
 
 export default function AuthForm() {
+  const [isNewUser, setIsNewUser] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isNewUser, setIsNewUser] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const router = useRouter();
 
   async function handleLogin(e) {
     e.preventDefault();
-    // TASK: handleLogin
     setIsSigningIn(true);
-    const { error } = await supabase.auth.signIn({ email, password });
-    setIsSigningIn(false);
-    if (error) {
-      console.error("Error logging in:", error);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    console.log({ error, data });
+    if (!error) {
+      router.push("/photos");
+    } else {
+      setIsSigningIn(false);
     }
   }
 
   async function handleSignUp(e) {
     e.preventDefault();
-    setIsSigningUp(true);
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
-    if (error) {
-      console.error("Error signing up:", error);
-      setIsSigningUp(false);
-    } else {
-      // console.log({ data });
-      setIsSigningUp(false);
-      // alert("¡Correo enviado! Revisa tu correo para confirmar la suscripción.");
+    if (!error) {
+      setIsSigningUp(true);
     }
+    console.log({ data, error });
   }
 
   let signInMessage = "Iniciar sesión";
 
-  if (isNewUser) {
-    signInMessage = "Crear una cuenta";
+  if (isSigningIn) {
+    signInMessage = "Iniciando sesión";
+  } else if (isNewUser) {
+    signInMessage = "Registrarse";
   }
+
+  const signUpMessage = (
+    <p className="text-center text-white">
+      ¡Correo electrónico enviado! Revisa tu correo electrónico para confirmar
+      el registro.
+    </p>
+  );
 
   return (
     <form
@@ -50,67 +60,53 @@ export default function AuthForm() {
       className="space-y-8"
     >
       <input
-        type="text"
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
-        className="text-zinc-500 appearance-none rounded relative block w-full px-3 py-2 border border-gray-600"
+        className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        placeholder="Email"
         autoComplete="email"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="text-zinc-500 appearance-none rounded relative block w-full px-3 py-2 border border-gray-600"
-        placeholder="password"
+        className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        placeholder="Contraseña"
         autoComplete="current-password"
       />
-
-      {/* El type="submit" acciona: <form onSubmit={isNewUser ? handleSignUp : handleLogin}>  */}
       <button
         type="submit"
-        className="group relative w-full flex justify-center py-2 px-4 border border-transparent bg-slate-700 hover:bg-slate-600 rounded"
+        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         {signInMessage}
       </button>
-
       <p className="text-center text-white">
         {isNewUser ? (
           <>
-            <span className="flex justify-center gap-2">
-              <span>¿Ya tienes una cuenta?</span>{" "}
-              <button
-                type="button"
-                onClick={() => setIsNewUser(false)}
-                className="text-amber-100 hover:text-amber-200"
-              >
-                iniciar sesión
-              </button>
-            </span>
+            ¿Ya tienes una cuenta?{" "}
+            <button
+              type="button"
+              onClick={() => setIsNewUser(false)}
+              className="text-indigo-400 hover:text-indigo-600"
+            >
+              Iniciar sesión
+            </button>
           </>
         ) : (
           <>
-            <span className="flex justify-center gap-2">
-              <span>¿No tienes una cuenta?</span>
-
-              <button
-                type="button"
-                onClick={() => setIsNewUser(true)}
-                className="text-amber-100 hover:text-amber-200"
-              >
-                <span>¡Crea una cuenta!</span>
-              </button>
-            </span>
+            ¿No tienes una cuenta?{" "}
+            <button
+              type="button"
+              onClick={() => setIsNewUser(true)}
+              className="text-indigo-400 hover:text-indigo-600"
+            >
+              Registrarse
+            </button>
           </>
         )}
       </p>
-
-      {/* Si es falso devuelve null, si es verdadero devuelve lo que este en signInUpMessage. */}
-      {isSigningUp && (
-        <p className="text-center text-white">
-          ¡Correo enviado! Revisa tu correo para confirmar la suscripción.
-        </p>
-      )}
+      {isSigningUp && signUpMessage}
     </form>
   );
 }
