@@ -104,7 +104,9 @@ Configura las rutas protegidas en tu aplicación Next.js para asegurar que solo 
 ((bucket_id = 'photographeniers'::text) AND ((name ~~ (('user_uploads/'::text || auth.uid ()) || '/%'::text )) OR (name ~~ (('user_uploads/'::text || auth.uid())  || '/%/%'::text))))
 ```
 
-_Volvemos a VsCode_
+# De vuelta en VsCode
+
+Dentro de la carpeta components creamos el archivo `PhotoUploader.jsx`
 
 # Capturas de Pantalla
 
