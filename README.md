@@ -109,6 +109,7 @@ Configura las rutas protegidas en tu aplicación Next.js para asegurar que solo 
 - Dentro de la carpeta `components` creamos el archivo `PhotoUploader.jsx` y luego `PhotoGrid.jsx`
 - Dentro de la carpeta `utils` creamos `supabaseServerClient.js`
 - Dentro de la carpeta `components` creamos `Photo.jsx`
+- Dentro de la carpeta `components` creamos `PhotoModal.jsx`
 
 # Capturas de Pantalla
 
