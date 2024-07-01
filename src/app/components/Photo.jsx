@@ -29,14 +29,16 @@ export default function Photo({
       >
         <form
           action="deletePhoto"
-          className="absolute bottom-2.5 right-10 z-10"
+          className="absolute bottom-2.5 right-2.5 z-10 "
         >
           <input type="hidden" name="photoPath" value={src} />
           <button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-slate-600 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
+            className="text-white/9i0 bg-transparent hover:text-red-400/80 focus:ring-slate-500"
           >
-            <Delete />
+            <Delete
+              className="w-8 h-8"
+            />
           </button>
         </form>
 
