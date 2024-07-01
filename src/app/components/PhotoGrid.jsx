@@ -83,8 +83,8 @@ export default async function PhotoGrid({ favorites = false }) {
           key={photo.photoName}
           src={photo.url}
           alt={`Photo ${photo.photoName}`}
-          width={200}
-          height={200}
+          width={400}
+          height={400}
           photoName={photo.photoName}
           isFavorited={photo.isFavorited}
         />

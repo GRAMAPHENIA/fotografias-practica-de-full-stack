@@ -111,13 +111,22 @@ Configura las rutas protegidas en tu aplicación Next.js para asegurar que solo 
 - Dentro de la carpeta `components` creamos `Photo.jsx`
 - Dentro de la carpeta `components` creamos `PhotoModal.jsx`
 
+# Material Icons
+
+- Instalación del paquete con `npm install @mui/icons-material`.
+
+# Emotion
+
+- Instalación del paquete con `npm install @emotion/react`
+- Instalación del paquete con `npm install @emotion/react`
+
 # Capturas de Pantalla
 
 A continuación se muestran algunas capturas de pantalla de la aplicación:
 
 - **Pantalla de inicio**
 
-  <!-- ![Captura 1](./public/foto-uno.png) -->
+  <!-- ![Captura 1](./public/foto-uno.png) -->~
 
 - **Subir Foto**
 
