@@ -33,9 +33,9 @@ function PhotoUploader() {
       }
 
       await fetch("/api/revalidate", {
-        methods: "POST",
+        method: "POST",
         headers: {
-          "Content-Type": "aplication/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ path: "/photos" }),
       });
