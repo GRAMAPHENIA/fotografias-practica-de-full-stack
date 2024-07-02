@@ -120,13 +120,17 @@ Configura las rutas protegidas en tu aplicación Next.js para asegurar que solo 
 - Instalación del paquete con `npm install @emotion/react`
 - Instalación del paquete con `npm install @emotion/react`
 
+# Server Actions
+
+Dentro de la carpeta `app` creamos la carpeta `actions` y dentro de esta el archivo de nombre `deletePhoto.js`
+
 # Capturas de Pantalla
 
 A continuación se muestran algunas capturas de pantalla de la aplicación:
 
 - **Pantalla de inicio**
 
-  <!-- ![Captura 1](./public/foto-uno.png) -->~
+  <!-- ![Captura 1](./public/foto-uno.png) -->
 
 - **Subir Foto**
 
